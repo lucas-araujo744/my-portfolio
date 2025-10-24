@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: 5 65% 52%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 0% 98%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 89%;
+    --input: 0 0% 89%;
+    --ring: 0 0% 0%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 26%;
+    --sidebar-primary: 0 0% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-ring: 0 0% 60%;
+  }
+
+  .dark {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 95%;
+
+    --card: 240 10% 8%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 240 10% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 5 65% 52%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 10% 12%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 240 10% 15%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 240 10% 12%;
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 10% 20%;
+    --input: 240 10% 20%;
+    --ring: 0 0% 90%;
+
+    --sidebar-background: 240 10% 8%;
+    --sidebar-foreground: 0 0% 85%;
+    --sidebar-primary: 0 0% 95%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 240 10% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 240 10% 25%;
+    --sidebar-ring: 0 0% 70%;
+  }
+
+  * {
+    @apply border-border;
+    scroll-behavior: smooth;
+  }
+
+  html {
+    /* Sem transições de cor */
+  }
+
+  * {
+    /* Apenas transições que não sejam de cor */
+    transition-property: transform, opacity, filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.3s;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .container {
+    @apply px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl;
+  }
+
+  .section {
+    @apply py-12 md:py-20;
+  }
+
+  .section-title {
+    @apply text-2xl md:text-3xl font-semibold mb-8 md:mb-12 text-center relative;
+    &::after {
+      content: '';
+      @apply absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary rounded-full;
+    }
+  }
+
+  .glass-card {
+    @apply bg-card/90 backdrop-blur-sm border border-border shadow-sm rounded-lg;
+  }
+
+  /* Apple-inspired button hover effect */
+  .button-hover {
+    @apply transition-transform duration-300 hover:scale-[1.03] active:scale-[0.97];
+  }
+
+  /* Subtle hover effect for cards */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-md;
+  }
+
+  /* Link hover underline effect */
+  .link-hover {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-0 after:bg-primary hover:after:w-full;
+  }
+  
+  .link-hover::after {
+    transition-property: width;
+    transition-duration: 0.3s;
+  }
+
+  a, button {
+    transition-property: transform, opacity;
+  }
+
+  /* Animation delay utilities */
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+
+  /* Custom scrollbar - adapta ao tema */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-secondary;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #D14836;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b13a2a;
+  }
+
+  /* Mobile and responsive tweaks */
+  @media (max-width: 768px) {
+    h1 {
+      @apply text-3xl;
+    }
+    
+    h2 {
+      @apply text-2xl;
+    }
+    
+    h3 {
+      @apply text-xl;
+    }
+    
+    p {
+      @apply text-sm;
+    }
+    
+    .grid {
+      @apply gap-4;
+    }
+  }
+
+  /* Smooth fade-in animation for images */
+  img.animate-fade-in {
+    animation: fadeIn 0.5s ease-in forwards;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* Theme toggle button com animação apenas de rotação */
+  .theme-toggle {
+    @apply p-2 rounded-full hover:bg-muted focus:outline-none;
+  }
+  
+  .theme-toggle svg {
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  .theme-toggle:hover svg {
+    transform: rotate(15deg);
+  }
+}
+
+/* Prevent overflow issues */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
