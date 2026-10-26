@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X, Moon, Sun, Languages } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
-import { personalInfo } from "@/lib/data";
+import { useLanguage } from "@/hooks/use-language";
 
 const NAV_ITEMS = [
-  { label: "Sobre", href: "#sobre" },
-  { label: "Experiência", href: "#experiencia" },
-  { label: "Projetos", href: "#projetos" },
-  { label: "Habilidades", href: "#habilidades" },
-  { label: "Contato", href: "#contato" }
-];
+  { key: "about", href: "#sobre" },
+  { key: "experience", href: "#experiencia" },
+  { key: "projects", href: "#projetos" },
+  { key: "skills", href: "#habilidades" },
+  { key: "contact", href: "#contato" }
+] as const;
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme, isChanging } = useTheme();
+  const { language, toggleLanguage, content, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,12 +42,24 @@ const Navbar = () => {
     <ul className={className}>
       {NAV_ITEMS.map((item) => (
         <li key={item.href}>
-          <a href={item.href} className="font-medium hover:text-primary" onClick={onClick}>
-            {item.label}
-          </a>
+          <Link to={`/${item.href}`} className="font-medium hover:text-primary" onClick={onClick}>
+            {t.nav[item.key]}
+          </Link>
         </li>
       ))}
     </ul>
+  );
+
+  const languageToggle = (
+    <button
+      onClick={toggleLanguage}
+      className="flex items-center gap-1 px-2 py-1 rounded-md text-sm font-medium hover:text-primary"
+      aria-label={t.switchLanguage}
+      title={t.switchLanguage}
+    >
+      <Languages size={18} />
+      {language === "pt" ? "EN" : "PT"}
+    </button>
   );
 
   return (
@@ -57,16 +70,18 @@ const Navbar = () => {
     >
       <div className="container flex items-center justify-between py-3">
         <Link to="/" className="text-xl font-semibold hover:text-primary">
-          {personalInfo.name}
+          {content.personalInfo.name}
         </Link>
 
         <div className="hidden md:flex items-center gap-4">
           <nav>{renderNavItems("flex space-x-6 text-sm")}</nav>
 
+          {languageToggle}
+
           <button
             onClick={toggleTheme}
             className="theme-toggle"
-            aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
+            aria-label={theme === "light" ? t.themeToDark : t.themeToLight}
             disabled={isChanging}
           >
             <div className={`transition-transform duration-150 ${isChanging ? "rotate-180" : ""}`}>
@@ -76,10 +91,12 @@ const Navbar = () => {
         </div>
 
         <div className="flex md:hidden items-center gap-2">
+          {languageToggle}
+
           <button
             onClick={toggleTheme}
             className="theme-toggle"
-            aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
+            aria-label={theme === "light" ? t.themeToDark : t.themeToLight}
             disabled={isChanging}
           >
             <div className={`transition-transform duration-150 ${isChanging ? "rotate-180" : ""}`}>
@@ -90,7 +107,7 @@ const Navbar = () => {
           <button
             className="p-2 rounded-md focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Abrir menu"
+            aria-label={t.openMenu}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

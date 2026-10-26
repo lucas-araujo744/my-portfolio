@@ -1,8 +1,11 @@
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
-import { contactInfo, personalInfo } from "@/lib/data";
+import { contactInfo } from "@/lib/data";
+import { useLanguage } from "@/hooks/use-language";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { content, t } = useLanguage();
+  const { personalInfo } = content;
   const whatsappNumber = contactInfo.phone.replace(/\D/g, "");
 
   return (
@@ -55,7 +58,7 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-gray-800 dark:border-border" />
 
         <div className="mt-6 text-center text-muted-foreground text-sm">
-          <p>&copy; {currentYear} {personalInfo.name}. Todos os direitos reservados.</p>
+          <p>&copy; {currentYear} {personalInfo.name}. {t.footer.rights}</p>
         </div>
       </div>
     </footer>

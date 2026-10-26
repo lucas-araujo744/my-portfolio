@@ -1,10 +1,12 @@
 import { useParams, Link } from "react-router-dom";
-import { projects } from "@/lib/data";
-import { ArrowLeft, Github, ExternalLink } from "lucide-react";
+import { useLanguage } from "@/hooks/use-language";
+import { ArrowLeft, Github, ExternalLink, CheckCircle2, Layers, FileText } from "lucide-react";
 import { useEffect } from "react";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const { content, t } = useLanguage();
+  const { projects } = content;
   const project = projects.find((p) => p.id === id);
 
   useEffect(() => {
@@ -15,80 +17,155 @@ const ProjectDetail = () => {
     return (
       <main className="min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
-          <h1 className="text-2xl font-semibold">Projeto não encontrado</h1>
+          <h1 className="text-2xl font-semibold">{t.projectDetail.notFound}</h1>
           <Link to="/" className="text-primary hover:underline">
-            Voltar para a página inicial
+            {t.projectDetail.backHome}
           </Link>
         </div>
       </main>
     );
   }
 
+  const hasLinks = project.repositoryUrl || project.demoUrl;
+
   return (
-    <main className="min-h-screen pt-20 pb-16">
+    <main className="min-h-screen pt-24 pb-20">
       <div className="container">
-        <Link to="/#projetos" className="inline-flex items-center text-foreground/70 hover:text-primary mb-8 transition-colors">
-          <ArrowLeft size={16} className="mr-2" /> Voltar para projetos
+        <Link
+          to="/#projetos"
+          className="inline-flex items-center text-sm text-foreground/70 hover:text-primary mb-10 transition-colors"
+        >
+          <ArrowLeft size={16} className="mr-2" /> {t.projectDetail.back}
         </Link>
 
-        <article className="max-w-4xl mx-auto space-y-10">
-          <header className="space-y-4 opacity-0 animate-fade-in">
-            <h1 className="text-3xl md:text-4xl font-semibold">{project.title}</h1>
-            <p className="text-lg text-foreground/80">{project.description}</p>
+        <article className="max-w-6xl mx-auto space-y-12">
+          <header className="max-w-3xl space-y-5 opacity-0 animate-fade-in">
+            <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary bg-primary/10 rounded-full">
+              {t.projectDetail.eyebrow}
+            </span>
+            <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">{project.title}</h1>
+            <p className="text-lg md:text-xl text-foreground/75 leading-relaxed">{project.description}</p>
 
-            <div className="flex flex-wrap gap-2 pt-2">
-              {project.technologies.map((tech) => (
-                <span key={tech} className="px-3 py-1 text-sm bg-secondary rounded-md font-medium">
-                  {tech}
-                </span>
-              ))}
-            </div>
+            {hasLinks && (
+              <div className="flex flex-wrap gap-3 pt-2">
+                {project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-5 py-2.5 bg-primary text-primary-foreground rounded-md font-medium button-hover"
+                  >
+                    <ExternalLink size={18} className="mr-2" /> {t.projectDetail.viewOnline}
+                  </a>
+                )}
+                {project.repositoryUrl && (
+                  <a
+                    href={project.repositoryUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-5 py-2.5 bg-secondary text-secondary-foreground border border-border rounded-md font-medium button-hover"
+                  >
+                    <Github size={18} className="mr-2" /> {t.projectDetail.viewCode}
+                  </a>
+                )}
+              </div>
+            )}
           </header>
 
           {project.imageUrl && (
-            <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-md opacity-0 animate-fade-in animation-delay-100">
-              <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
+            <div className="glass-card overflow-hidden shadow-xl opacity-0 animate-fade-in animation-delay-100">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-secondary/60">
+                <span className="w-3 h-3 rounded-full bg-red-400" />
+                <span className="w-3 h-3 rounded-full bg-yellow-400" />
+                <span className="w-3 h-3 rounded-full bg-green-400" />
+                {project.demoUrl && (
+                  <span className="ml-3 hidden sm:block truncate text-xs text-muted-foreground">
+                    {project.demoUrl.replace(/^https?:\/\//, "")}
+                  </span>
+                )}
+              </div>
+              <img src={project.imageUrl} alt={project.title} className="w-full h-auto block" />
             </div>
           )}
 
-          <section className="prose max-w-none opacity-0 animate-fade-in animation-delay-200 dark:prose-invert">
-            <h2>Descrição</h2>
-            <p>{project.longDescription || project.description}</p>
+          <div className="grid lg:grid-cols-3 gap-8 opacity-0 animate-fade-in animation-delay-200">
+            <div className="lg:col-span-2 space-y-8">
+              <section className="glass-card p-6 md:p-8">
+                <h2 className="flex items-center gap-3 text-xl font-semibold mb-4">
+                  <span className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                    <FileText size={18} />
+                  </span>
+                  {t.projectDetail.description}
+                </h2>
+                <p className="text-foreground/80 leading-relaxed text-base md:text-lg">
+                  {project.longDescription || project.description}
+                </p>
+              </section>
 
-            {project.highlights && (
-              <>
-                <h2>Destaques</h2>
-                <ul>
-                  {project.highlights.map((highlight, index) => (
-                    <li key={index}>{highlight}</li>
+              {project.highlights && (
+                <section>
+                  <h2 className="text-xl font-semibold mb-4">{t.projectDetail.highlights}</h2>
+                  <ul className="grid sm:grid-cols-2 gap-4">
+                    {project.highlights.map((highlight, index) => (
+                      <li key={index} className="glass-card hover-lift p-4 flex items-start gap-3">
+                        <CheckCircle2 size={20} className="text-primary shrink-0 mt-0.5" />
+                        <span className="text-foreground/85 leading-relaxed">{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+            </div>
+
+            <aside className="space-y-6 lg:sticky lg:top-24 self-start">
+              <section className="glass-card p-6">
+                <h2 className="flex items-center gap-3 text-lg font-semibold mb-4">
+                  <span className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                    <Layers size={18} />
+                  </span>
+                  {t.projectDetail.technologies}
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1.5 text-sm bg-secondary border border-border rounded-full font-medium"
+                    >
+                      {tech}
+                    </span>
                   ))}
-                </ul>
-              </>
-            )}
-          </section>
+                </div>
+              </section>
 
-          <footer className="flex flex-wrap gap-4 opacity-0 animate-fade-in animation-delay-300">
-            {project.repositoryUrl && (
-              <a
-                href={project.repositoryUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 bg-[#24292e] text-white rounded-md button-hover"
-              >
-                <Github size={18} className="mr-2" /> Ver código no GitHub
-              </a>
-            )}
-            {project.demoUrl && (
-              <a
-                href={project.demoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md button-hover"
-              >
-                <ExternalLink size={18} className="mr-2" /> Ver projeto online
-              </a>
-            )}
-          </footer>
+              {hasLinks && (
+                <section className="glass-card p-6 space-y-3">
+                  <h2 className="text-lg font-semibold">{t.projectDetail.links}</h2>
+                  {project.demoUrl && (
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between gap-2 text-foreground/80 hover:text-primary transition-colors"
+                    >
+                      <span className="truncate">{project.demoUrl.replace(/^https?:\/\//, "")}</span>
+                      <ExternalLink size={16} className="shrink-0" />
+                    </a>
+                  )}
+                  {project.repositoryUrl && (
+                    <a
+                      href={project.repositoryUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between gap-2 text-foreground/80 hover:text-primary transition-colors"
+                    >
+                      <span className="truncate">GitHub</span>
+                      <Github size={16} className="shrink-0" />
+                    </a>
+                  )}
+                </section>
+              )}
+            </aside>
+          </div>
         </article>
       </div>
     </main>

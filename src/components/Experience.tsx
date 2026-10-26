@@ -1,15 +1,18 @@
-import { experiences, education } from "@/lib/data";
+import { useLanguage } from "@/hooks/use-language";
 import { ExternalLink } from "lucide-react";
 
 const Experience = () => {
+  const { content, t } = useLanguage();
+  const { experiences, education } = content;
+
   return (
     <section id="experiencia" className="section bg-accent">
       <div className="container">
-        <h2 className="section-title">Experiência & Educação</h2>
+        <h2 className="section-title">{t.experience.title}</h2>
 
         <div className="grid lg:grid-cols-2 gap-16">
           <div className="space-y-12">
-            <h3 className="text-xl font-semibold mb-8 pb-2 border-b border-border">Experiência Profissional</h3>
+            <h3 className="text-xl font-semibold mb-8 pb-2 border-b border-border">{t.experience.professional}</h3>
 
             {experiences.map((exp, index) => (
               <div
@@ -43,7 +46,7 @@ const Experience = () => {
           </div>
 
           <div className="space-y-12">
-            <h3 className="text-xl font-semibold mb-8 pb-2 border-b border-border">Educação</h3>
+            <h3 className="text-xl font-semibold mb-8 pb-2 border-b border-border">{t.experience.education}</h3>
 
             {education.map((edu, index) => (
               <div

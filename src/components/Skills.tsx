@@ -1,19 +1,20 @@
-import { skills } from "@/lib/data";
+import type { SkillCategoryKey } from "@/lib/data";
+import { useLanguage } from "@/hooks/use-language";
 import { Database, Server, Code, Terminal, Globe, Layers } from "lucide-react";
 
-const getIconForCategory = (category: string) => {
-  switch (category) {
-    case "Front-end":
+const getIconForCategory = (key: SkillCategoryKey) => {
+  switch (key) {
+    case "frontend":
       return <Code className="text-primary" size={24} />;
-    case "Back-end":
+    case "backend":
       return <Server className="text-primary" size={24} />;
-    case "Banco de Dados":
+    case "database":
       return <Database className="text-primary" size={24} />;
-    case "Infraestrutura":
+    case "infra":
       return <Globe className="text-primary" size={24} />;
-    case "Metodologias e Ferramentas":
+    case "tools":
       return <Terminal className="text-primary" size={24} />;
-    case "Idiomas":
+    case "languages":
       return <Layers className="text-primary" size={24} />;
     default:
       return <Code className="text-primary" size={24} />;
@@ -61,19 +62,25 @@ const badgeMap: Record<string, string> = {
   "GitHub Actions": "https://img.shields.io/badge/GitHub_Actions-282a2e?style=for-the-badge&logo=githubactions&logoColor=367cfe",
   "Nginx": "https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white",
   "Vercel": "https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white",
+  "Hetzner": "https://img.shields.io/badge/Hetzner-D50C2D?style=for-the-badge&logo=hetzner&logoColor=white",
+  "Prometheus":"https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white",
+  "Morpheus": "https://img.shields.io/badge/Morpheus-0A2540?style=for-the-badge",
 
   // Metodologias e Ferramentas
   "Git": "https://img.shields.io/badge/Git-E44C30?style=for-the-badge&logo=git&logoColor=white",
   "Clean Code": "https://img.shields.io/badge/Clean_Code-3F3F3F?style=for-the-badge&logo=elasticstack&logoColor=white",
   "Métodos Ágeis": "https://img.shields.io/badge/Agile-0052CC?style=for-the-badge&logo=airtable&logoColor=white",
+  "Agile": "https://img.shields.io/badge/Agile-0052CC?style=for-the-badge&logo=airtable&logoColor=white",
   "SCRUM": "https://img.shields.io/badge/Scrum-6DB33F?style=for-the-badge&logo=iter&logoColor=white",
   "Programação Orientada a Objetos": "https://img.shields.io/badge/POO-3776AB?style=for-the-badge&logo=python&logoColor=white",
+  "Object-Oriented Programming": "https://img.shields.io/badge/OOP-3776AB?style=for-the-badge&logo=python&logoColor=white",
   "Trello": "https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=trello&logoColor=white",
   "Excel": "https://img.shields.io/badge/Microsoft_Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white",
   "Jira": "https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white",
 
   // Idiomas
-  "Inglês - Intermediário": "https://img.shields.io/badge/Ingl%C3%AAs-Intermedi%C3%A1rio-blue?style=for-the-badge"
+  "Inglês - Intermediário": "https://img.shields.io/badge/Ingl%C3%AAs-Intermedi%C3%A1rio-blue?style=for-the-badge",
+  "English - Intermediate": "https://img.shields.io/badge/English-Intermediate-blue?style=for-the-badge"
 };
 
 const getBadgeUrl = (skill: string) => {
@@ -91,8 +98,16 @@ const SkillBadge = ({ skill }: SkillBadgeProps) => {
   );
 };
 
-const SkillCategory = ({ category, items }: { category: string; items: string[] }) => {
-  const icon = getIconForCategory(category);
+const SkillCategory = ({
+  categoryKey,
+  category,
+  items
+}: {
+  categoryKey: SkillCategoryKey;
+  category: string;
+  items: string[];
+}) => {
+  const icon = getIconForCategory(categoryKey);
 
   return (
     <div className="mb-10">
@@ -110,14 +125,21 @@ const SkillCategory = ({ category, items }: { category: string; items: string[] 
 };
 
 const Skills = () => {
+  const { content, t } = useLanguage();
+
   return (
     <section id="habilidades" className="section bg-accent">
       <div className="container">
-        <h2 className="section-title">Habilidades</h2>
+        <h2 className="section-title">{t.skills.title}</h2>
 
         <div className="space-y-10">
-          {skills.map((skillGroup) => (
-            <SkillCategory key={skillGroup.category} category={skillGroup.category} items={skillGroup.items} />
+          {content.skills.map((skillGroup) => (
+            <SkillCategory
+              key={skillGroup.key}
+              categoryKey={skillGroup.key}
+              category={skillGroup.category}
+              items={skillGroup.items}
+            />
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { Mail, Phone, Github, Linkedin, ExternalLink } from "lucide-react";
 import { contactInfo } from "@/lib/data";
+import { useLanguage } from "@/hooks/use-language";
 import type { ReactNode } from "react";
 
 const ContactItem = ({
@@ -36,17 +37,18 @@ const ContactItem = ({
 
 const Contact = () => {
   const whatsappNumber = contactInfo.phone.replace(/\D/g, "");
+  const { t } = useLanguage();
 
   return (
     <section id="contato" className="section bg-background">
       <div className="container">
-        <h2 className="section-title">Entre em Contato</h2>
+        <h2 className="section-title">{t.contact.title}</h2>
 
         <div className="max-w-3xl mx-auto">
           <div className="opacity-0 animate-fade-in">
-            <h3 className="text-xl font-semibold mb-6 text-center">Vamos Conversar</h3>
+            <h3 className="text-xl font-semibold mb-6 text-center">{t.contact.subtitle}</h3>
             <p className="text-foreground/80 mb-8 text-center">
-              Estou sempre aberto a novas oportunidades, colaborações ou mesmo para trocar ideias sobre tecnologia.
+              {t.contact.text}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -62,7 +64,7 @@ const Contact = () => {
                 title="WhatsApp"
                 value={contactInfo.phone}
                 link={`https://wa.me/55${whatsappNumber}`}
-                linkText="Enviar mensagem"
+                linkText={t.contact.sendMessage}
               />
 
               <ContactItem
@@ -70,7 +72,7 @@ const Contact = () => {
                 title="LinkedIn"
                 value={`linkedin.com/${contactInfo.linkedIn}`}
                 link={`https://linkedin.com/${contactInfo.linkedIn}`}
-                linkText="Ver perfil"
+                linkText={t.contact.viewProfile}
               />
             </div>
 
@@ -81,7 +83,7 @@ const Contact = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-3 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors border border-gray-300 dark:border-border"
               >
-                <Github size={18} /> Ver meus projetos no GitHub
+                <Github size={18} /> {t.contact.github}
               </a>
             </div>
           </div>

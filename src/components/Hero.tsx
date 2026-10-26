@@ -1,4 +1,4 @@
-import { personalInfo } from "@/lib/data";
+import { useLanguage } from "@/hooks/use-language";
 import { ArrowDown } from "lucide-react";
 import profileImage from "@/assets/perfil.jpg";
 import { TypeAnimation } from "react-type-animation";
@@ -6,6 +6,8 @@ import { useState } from "react";
 
 const Hero = () => {
   const [typingComplete, setTypingComplete] = useState(false);
+  const { language, content, t } = useLanguage();
+  const { personalInfo } = content;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-16">
@@ -18,6 +20,7 @@ const Hero = () => {
             </h1>
             <h2 className="text-xl md:text-2xl font-medium text-primary mb-6">
               <TypeAnimation
+                key={language}
                 sequence={[
                   "",
                   500,
@@ -47,13 +50,13 @@ const Hero = () => {
                 href="#contato"
                 className="px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium button-hover w-full sm:w-auto text-center"
               >
-                Entre em contato
+                {t.hero.contact}
               </a>
               <a
                 href="#projetos"
                 className="px-6 py-3 bg-secondary text-secondary-foreground border border-border rounded-md font-medium hover:bg-secondary/80 button-hover w-full sm:w-auto text-center"
               >
-                Ver projetos
+                {t.hero.projects}
               </a>
             </div>
           </div>
@@ -75,7 +78,7 @@ const Hero = () => {
         <a
           href="#sobre"
           className="p-2 rounded-full border border-border hover:border-primary transition-all"
-          aria-label="Role para baixo"
+          aria-label={t.hero.scrollDown}
         >
           <ArrowDown size={24} className="animate-bounce" />
         </a>

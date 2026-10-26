@@ -1,12 +1,15 @@
-import { projects } from "@/lib/data";
+import { useLanguage } from "@/hooks/use-language";
 import { ArrowRight, Github, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Projects = () => {
+  const { content, t } = useLanguage();
+  const { projects } = content;
+
   return (
     <section id="projetos" className="section bg-background">
       <div className="container">
-        <h2 className="section-title">Projetos</h2>
+        <h2 className="section-title">{t.projects.title}</h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
@@ -48,7 +51,7 @@ const Projects = () => {
 
                 <div className="flex items-center justify-between pt-2">
                   <Link to={`/projeto/${project.id}`} className="flex items-center text-sm font-medium text-primary hover:underline">
-                    Ver detalhes <ArrowRight size={16} className="ml-1" />
+                    {t.projects.details} <ArrowRight size={16} className="ml-1" />
                   </Link>
 
                   <div className="flex items-center gap-3">
@@ -58,7 +61,7 @@ const Projects = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-foreground/70 hover:text-primary transition-colors"
-                        aria-label="Ver código no GitHub"
+                        aria-label={t.projects.viewCode}
                       >
                         <Github size={18} />
                       </a>
@@ -69,7 +72,7 @@ const Projects = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-foreground/70 hover:text-primary transition-colors"
-                        aria-label="Ver demonstração"
+                        aria-label={t.projects.viewDemo}
                       >
                         <ExternalLink size={18} />
                       </a>
