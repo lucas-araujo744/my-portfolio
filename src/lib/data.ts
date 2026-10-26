@@ -54,7 +54,7 @@ export const contactInfo = {
   email: "lucasao744@gmail.com",
   phone: "(61) 98352-2246",
   location: "Brasília - DF",
-  github: "lucas0302",
+  github: "lucas-araujo744",
   linkedIn: "/in/lucas-araujo-de-oliveira"
 };
 

@@ -11,5 +11,5 @@ Aqui você encontra um pouco da minha trajetória, as experiências que tive e o
 ## Vamos conversar?
 
 - E-mail: lucasao744@gmail.com
-- GitHub: [lucas0302](https://github.com/lucas0302)
+- GitHub: [lucas-araujo744](https://github.com/lucas-araujo744)
 - LinkedIn: [lucas-araujo-de-oliveira](https://www.linkedin.com/in/lucas-araujo-de-oliveira)
