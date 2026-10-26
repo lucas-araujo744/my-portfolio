@@ -138,7 +138,6 @@ const pt: Content = {
         "Sistema web responsivo que digitaliza o controle de expedição de produtos alimentícios, antes feito manualmente. Permite registrar cada expedição com dados do veículo (placa, condições sanitárias e temperatura), lotes de produção, produtos, quantidades, notas fiscais e clientes, e gera automaticamente os relatórios internos diários e o relatório mensal exigido pelo DIPOVA/Ministério da Agricultura, exportados em Excel. O front-end foi feito em Next.js com Tailwind CSS e o back-end em NestJS com Prisma e PostgreSQL, com autenticação JWT e controle de acesso por perfil.",
       technologies: ["Next.js", "NestJS", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS", "JWT", "ExcelJS"],
       imageUrl: "/assets/rastreio-alimentos.png",
-      repositoryUrl: "https://github.com/lucas-araujo744/si-rastreio-alimentos",
       highlights: [
         "Registro de expedições com veículo, condições sanitárias e temperatura (0°C a 5°C)",
         "Controle de lotes, produtos, quantidades e notas fiscais",
