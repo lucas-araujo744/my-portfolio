@@ -79,7 +79,9 @@ const badgeMap: Record<string, string> = {
   "Jira": "https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white",
 
   // Idiomas
-  "Inglês - Intermediário": "https://img.shields.io/badge/Ingl%C3%AAs-Intermedi%C3%A1rio-blue?style=for-the-badge",
+  "Português - Fluente": "https://img.shields.io/badge/Portugu%C3%AAs-Fluente-green?style=for-the-badge",
+  "Portuguese - Fluent": "https://img.shields.io/badge/Portuguese-Fluent-green?style=for-the-badge",
+  "Inglês - Intermediário":"https://img.shields.io/badge/Ingl%C3%AAs-Intermedi%C3%A1rio-blue?style=for-the-badge",
   "English - Intermediate": "https://img.shields.io/badge/English-Intermediate-blue?style=for-the-badge"
 };
 

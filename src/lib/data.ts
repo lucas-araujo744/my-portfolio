@@ -230,7 +230,7 @@ const pt: Content = {
     {
       key: "languages",
       category: "Idiomas",
-      items: ["Inglês - Intermediário"]
+      items: ["Português - Fluente", "Inglês - Intermediário"]
     }
   ],
   personalInfo: {
@@ -363,7 +363,7 @@ const en: Content = {
     {
       key: "languages",
       category: "Languages",
-      items: ["English - Intermediate"]
+      items: ["Portuguese - Fluent", "English - Intermediate"]
     }
   ],
   personalInfo: {
