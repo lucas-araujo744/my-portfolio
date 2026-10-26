@@ -192,7 +192,7 @@ const pt: Content = {
       institution: "Centro Universitário de Brasília - UniCEUB",
       period: "01/2022 - 12/2025",
       description: [
-        "Estou concluindo o curso com foco em tecnologias avançadas e aplicações práticas",
+        "Concluí o curso com foco em tecnologias avançadas e aplicações práticas",
         "Desenvolvi projetos utilizando Inteligência Artificial e Machine Learning para solução de problemas complexos",
         "Implementei sistemas distribuídos com arquiteturas de microserviços utilizando Docker e Kubernetes",
         "Participei de competições de programação e hackathons, aprimorando minhas habilidades de resolução de problemas",
@@ -342,7 +342,7 @@ const en: Content = {
       ...pt.education[0],
       title: "Computer Science",
       description: [
-        "Finishing my degree with a focus on advanced technologies and practical applications",
+        "Completed my degree with a focus on advanced technologies and practical applications",
         "Built projects using Artificial Intelligence and Machine Learning to solve complex problems",
         "Implemented distributed systems with microservice architectures using Docker and Kubernetes",
         "Took part in programming competitions and hackathons, sharpening my problem-solving skills",
